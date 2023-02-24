@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -16,17 +18,22 @@ public class ProdutoUnidade {
 	private Float valorTotal;
 	@OneToOne
 	private Produto produto;
+	
+	@ManyToOne
+	@JoinColumn(name = "compra_id")
+	private Compra compra;
 
 	public ProdutoUnidade() {
 		super();
 	}
 
-	public ProdutoUnidade(Long id, Integer qtd, Float valorTotal, Produto produto) {
+	public ProdutoUnidade(Long id, Integer qtd, Produto produto, Compra compra) {
 		super();
 		this.id = id;
 		this.qtd = qtd;
-		this.valorTotal = valorTotal;
+		this.valorTotal = produto.getPreco() * qtd;
 		this.produto = produto;
+		this.compra = compra;
 	}
 
 	public Long getId() {
@@ -59,6 +66,14 @@ public class ProdutoUnidade {
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+
+	public Compra getCompra() {
+		return compra;
+	}
+
+	public void setCompra(Compra compra) {
+		this.compra = compra;
 	}
 	
 	

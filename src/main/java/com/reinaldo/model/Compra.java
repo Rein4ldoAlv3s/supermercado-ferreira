@@ -1,6 +1,7 @@
 package com.reinaldo.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Compra {
@@ -21,8 +23,11 @@ public class Compra {
 	private Integer qtdProdutos;
 
 	@ManyToOne
-	@JoinColumn(name = "usuario_id", nullable = false)
+	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
+	
+	@OneToMany(mappedBy = "compra")
+	private List<ProdutoUnidade> produtosUnidade;
 
 	public Compra() {
 		super();
@@ -76,7 +81,13 @@ public class Compra {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	
+
+	public List<ProdutoUnidade> getProdutosUnidade() {
+		return produtosUnidade;
+	}
+
+	public void setProdutosUnidade(List<ProdutoUnidade> produtosUnidade) {
+		this.produtosUnidade = produtosUnidade;
+	}
 
 }

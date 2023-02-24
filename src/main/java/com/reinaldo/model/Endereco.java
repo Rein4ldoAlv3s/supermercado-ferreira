@@ -1,9 +1,11 @@
 package com.reinaldo.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -18,6 +20,7 @@ public class Endereco {
 	private Integer numero;
 	private String cidade;
 	private String estado;
+	
 	@OneToOne(mappedBy = "endereco")
 	private Usuario usuario;
 
@@ -26,7 +29,7 @@ public class Endereco {
 	}
 
 	public Endereco(Long id, String rua, String logradouro, String complemento, Integer numero, String cidade,
-			String estado) {
+			String estado, Usuario usuario) {
 		super();
 		this.id = id;
 		this.rua = rua;
@@ -35,6 +38,7 @@ public class Endereco {
 		this.numero = numero;
 		this.cidade = cidade;
 		this.estado = estado;
+		this.usuario = usuario;
 	}
 
 	public Long getId() {
@@ -92,5 +96,15 @@ public class Endereco {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	
 
 }
