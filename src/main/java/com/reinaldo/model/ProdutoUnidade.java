@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class ProdutoUnidade {
 
@@ -18,7 +20,8 @@ public class ProdutoUnidade {
 	private Float valorTotal;
 	@OneToOne
 	private Produto produto;
-	
+
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "compra_id")
 	private Compra compra;
@@ -75,7 +78,5 @@ public class ProdutoUnidade {
 	public void setCompra(Compra compra) {
 		this.compra = compra;
 	}
-	
-	
 
 }

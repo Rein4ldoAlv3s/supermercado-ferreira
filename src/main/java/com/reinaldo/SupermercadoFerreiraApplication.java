@@ -57,8 +57,14 @@ public class SupermercadoFerreiraApplication implements CommandLineRunner{
 		//4
 		ProdutoUnidade pu2 = new ProdutoUnidade(null, 2, p2, null);
 		//5
+		//recebe produto unidade em compra
 		Compra c1 = new Compra(null, 1f, LocalDateTime.now(), 2, u1);
-		c1.setProdutosUnidade(Arrays.asList(pu1, pu2));
+		c1.setProdutosUnidade(Arrays.asList(pu1,pu2));
+		
+		//recebe compra em produto unidade
+		pu1.setCompra(c1);
+		pu2.setCompra(c1);
+		
 		
 		//1
 		enderecoRepo.save(e1);
@@ -66,10 +72,11 @@ public class SupermercadoFerreiraApplication implements CommandLineRunner{
 		usuarioRepo.save(u1);	
 		//3
 		produtoRepo.saveAll(Arrays.asList(p1,p2));
-		//4
-		produtoUnidRepo.saveAll(Arrays.asList(pu1,pu2));
 		//5
 		compraRepo.save(c1);
+		//4
+		produtoUnidRepo.saveAll(Arrays.asList(pu1,pu2));
+		
 		
 		
 	}
