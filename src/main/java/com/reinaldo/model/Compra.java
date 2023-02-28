@@ -1,6 +1,7 @@
 package com.reinaldo.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,11 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Compra {
@@ -20,6 +18,7 @@ public class Compra {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	//soma valorTotal de ProdutosUnidade
 	private Float valorTotal;
 	private LocalDateTime diaHorarioCompra;
 
@@ -30,19 +29,19 @@ public class Compra {
 	private Usuario usuario;
 
 	@OneToMany(mappedBy = "compra")
-	private List<ProdutoUnidade> produtosUnidade;
+	private List<ProdutoUnidade> produtosUnidade = new ArrayList<>();
 
 	public Compra() {
 		super();
 	}
 
-	public Compra(Long id, Float valorTotal, LocalDateTime diaHorarioCompra, Integer qtdProdutos, Usuario usuario) {
+	public Compra(Long id, LocalDateTime diaHorarioCompra, Integer qtdProdutos, Usuario usuario) {
 		super();
 		this.id = id;
-		this.valorTotal = valorTotal;
 		this.diaHorarioCompra = diaHorarioCompra;
 		this.qtdProdutos = qtdProdutos;
 		this.usuario = usuario;
+		this.valorTotal = 0f;
 	}
 
 	public Long getId() {
@@ -56,6 +55,8 @@ public class Compra {
 	public Float getValorTotal() {
 		return valorTotal;
 	}
+
+	
 
 	public void setValorTotal(Float valorTotal) {
 		this.valorTotal = valorTotal;
@@ -90,7 +91,7 @@ public class Compra {
 	}
 
 	public void setProdutosUnidade(List<ProdutoUnidade> produtosUnidade) {
-		this.produtosUnidade = produtosUnidade;
+		produtosUnidade.forEach(p -> this.valorTotal += p.getValorTotal());
 	}
 
 }

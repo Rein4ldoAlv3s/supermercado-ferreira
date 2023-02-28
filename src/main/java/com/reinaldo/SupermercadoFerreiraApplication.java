@@ -58,7 +58,7 @@ public class SupermercadoFerreiraApplication implements CommandLineRunner{
 		ProdutoUnidade pu2 = new ProdutoUnidade(null, 2, p2, null);
 		//5
 		//recebe produto unidade em compra
-		Compra c1 = new Compra(null, 1f, LocalDateTime.now(), 2, u1);
+		Compra c1 = new Compra(null, LocalDateTime.now(), 2, u1);
 		c1.setProdutosUnidade(Arrays.asList(pu1,pu2));
 		
 		//recebe compra em produto unidade
